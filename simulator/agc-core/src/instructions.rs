@@ -299,14 +299,12 @@ fn exec_ts(agc: &mut Agc, addr: u16) -> u64 {
     let a = agc.reg_a_with_overflow();
     if has_overflow(a) {
         // Overflow: store sign-corrected value, set A to ±1, skip next
-        let sign = if a & SIGN_BIT != 0 { SIGN_BIT | 1 } else { 0 };
         let corrected = a & WORD_MASK;
         agc.write_mem(addr, corrected);
         // A = +1 or -1 depending on overflow direction
         if a & 0x8000 != 0 && a & SIGN_BIT != 0 {
             agc.set_reg_a(NEG_ZERO - 1); // -1 in 1's complement
         } else {
-            let _ = sign;
             agc.set_reg_a(0x0001); // +1
         }
         let z = agc.reg_z();
