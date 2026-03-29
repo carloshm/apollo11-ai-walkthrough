@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apollo Guidance Computer Simulator</title>
+    <link rel="stylesheet" href="src/styles.css">
+</head>
+<body>
+    <header>
+        <h1>🚀 Apollo Guidance Computer Simulator</h1>
+        <p class="subtitle">AGC4 Block II — Apollo 11 Lunar Module</p>
+    </header>
+
+    <main>
+        <div class="panels">
+            <!-- DSKY Panel -->
+            <section class="panel dsky-panel">
+                <h2>DSKY — Display & Keyboard</h2>
+                <div class="dsky">
+                    <div class="dsky-display">
+                        <div class="dsky-status-lights">
+                            <div class="status-light" id="light-uplink-acty">UPLINK<br>ACTY</div>
+                            <div class="status-light" id="light-comp-acty">COMP<br>ACTY</div>
+                            <div class="status-light" id="light-temp">TEMP</div>
+                            <div class="status-light" id="light-key-rel">KEY<br>REL</div>
+                            <div class="status-light" id="light-opr-err">OPR<br>ERR</div>
+                            <div class="status-light" id="light-restart">RESTART</div>
+                            <div class="status-light" id="light-stby">STBY</div>
+                            <div class="status-light" id="light-no-att">NO<br>ATT</div>
+                            <div class="status-light" id="light-gimbal-lock">GIMBAL<br>LOCK</div>
+                            <div class="status-light" id="light-tracker">TRACKER</div>
+                            <div class="status-light" id="light-prog">PROG</div>
+                            <div class="status-light" id="light-alt">ALT</div>
+                            <div class="status-light" id="light-vel">VEL</div>
+                        </div>
+                        <div class="dsky-readouts">
+                            <div class="dsky-row">
+                                <span class="dsky-label">PROG</span>
+                                <span class="dsky-digits" id="dsky-prog">88</span>
+                            </div>
+                            <div class="dsky-row">
+                                <span class="dsky-label">VERB</span>
+                                <span class="dsky-digits" id="dsky-verb">88</span>
+                            </div>
+                            <div class="dsky-row">
+                                <span class="dsky-label">NOUN</span>
+                                <span class="dsky-digits" id="dsky-noun">88</span>
+                            </div>
+                            <div class="dsky-separator"></div>
+                            <div class="dsky-row">
+                                <span class="dsky-label">R1</span>
+                                <span class="dsky-digits dsky-data" id="dsky-r1">+88888</span>
+                            </div>
+                            <div class="dsky-row">
+                                <span class="dsky-label">R2</span>
+                                <span class="dsky-digits dsky-data" id="dsky-r2">+88888</span>
+                            </div>
+                            <div class="dsky-row">
+                                <span class="dsky-label">R3</span>
+                                <span class="dsky-digits dsky-data" id="dsky-r3">+88888</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dsky-keyboard">
+                        <div class="dsky-key-row">
+                            <button class="dsky-key" data-key="verb">VERB</button>
+                            <button class="dsky-key" data-key="noun">NOUN</button>
+                        </div>
+                        <div class="dsky-key-row">
+                            <button class="dsky-key dsky-key-num" data-key="7">7</button>
+                            <button class="dsky-key dsky-key-num" data-key="8">8</button>
+                            <button class="dsky-key dsky-key-num" data-key="9">9</button>
+                            <button class="dsky-key" data-key="clr">CLR</button>
+                        </div>
+                        <div class="dsky-key-row">
+                            <button class="dsky-key dsky-key-num" data-key="4">4</button>
+                            <button class="dsky-key dsky-key-num" data-key="5">5</button>
+                            <button class="dsky-key dsky-key-num" data-key="6">6</button>
+                            <button class="dsky-key" data-key="pro">PRO</button>
+                        </div>
+                        <div class="dsky-key-row">
+                            <button class="dsky-key dsky-key-num" data-key="1">1</button>
+                            <button class="dsky-key dsky-key-num" data-key="2">2</button>
+                            <button class="dsky-key dsky-key-num" data-key="3">3</button>
+                            <button class="dsky-key" data-key="key-rel">KEY<br>REL</button>
+                        </div>
+                        <div class="dsky-key-row">
+                            <button class="dsky-key dsky-key-num" data-key="plus">+</button>
+                            <button class="dsky-key dsky-key-num" data-key="0">0</button>
+                            <button class="dsky-key dsky-key-num" data-key="minus">−</button>
+                            <button class="dsky-key dsky-key-enter" data-key="enter">ENTR</button>
+                        </div>
+                        <div class="dsky-key-row">
+                            <button class="dsky-key dsky-key-wide" data-key="reset">RSET</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CPU State Panel -->
+            <section class="panel cpu-panel">
+                <h2>CPU State</h2>
+                <div class="register-grid">
+                    <div class="register">
+                        <span class="reg-name">A</span>
+                        <span class="reg-value" id="reg-a">00000</span>
+                    </div>
+                    <div class="register">
+                        <span class="reg-name">L</span>
+                        <span class="reg-value" id="reg-l">00000</span>
+                    </div>
+                    <div class="register">
+                        <span class="reg-name">Q</span>
+                        <span class="reg-value" id="reg-q">00000</span>
+                    </div>
+                    <div class="register">
+                        <span class="reg-name">Z (PC)</span>
+                        <span class="reg-value" id="reg-z">00000</span>
+                    </div>
+                    <div class="register">
+                        <span class="reg-name">EB</span>
+                        <span class="reg-value" id="reg-eb">0</span>
+                    </div>
+                    <div class="register">
+                        <span class="reg-name">FB</span>
+                        <span class="reg-value" id="reg-fb">00000</span>
+                    </div>
+                    <div class="register">
+                        <span class="reg-name">BB</span>
+                        <span class="reg-value" id="reg-bb">00000</span>
+                    </div>
+                </div>
+                <div class="cpu-flags">
+                    <span class="flag" id="flag-overflow">OVF</span>
+                    <span class="flag" id="flag-extend">EXT</span>
+                    <span class="flag" id="flag-interrupts">INT</span>
+                    <span class="flag" id="flag-isr">ISR</span>
+                    <span class="flag" id="flag-running">RUN</span>
+                    <span class="flag" id="flag-engine">ENG</span>
+                </div>
+                <div class="cpu-stats">
+                    <div><span>Instructions:</span> <span id="stat-instructions">0</span></div>
+                    <div><span>Elapsed:</span> <span id="stat-elapsed">0.000 ms</span></div>
+                    <div><span>Speed:</span> <span id="stat-speed">—</span></div>
+                </div>
+
+                <h3>Execution Controls</h3>
+                <div class="controls">
+                    <button id="btn-step" title="Execute one instruction">Step</button>
+                    <button id="btn-run" title="Run continuously">Run</button>
+                    <button id="btn-stop" title="Stop execution">Stop</button>
+                    <button id="btn-reset" title="Reset the AGC">Reset</button>
+                    <button id="btn-gojam" title="Trigger GOJAM (hardware reset)">GOJAM</button>
+                </div>
+                <div class="speed-control">
+                    <label for="speed-slider">Speed:</label>
+                    <input type="range" id="speed-slider" min="1" max="100" value="50">
+                    <span id="speed-label">~43K inst/s</span>
+                </div>
+            </section>
+        </div>
+
+        <!-- Memory Inspector -->
+        <section class="panel memory-panel">
+            <h2>Memory Inspector</h2>
+            <div class="memory-controls">
+                <label for="mem-addr">Address (octal):</label>
+                <input type="text" id="mem-addr" value="0000" size="6" maxlength="5">
+                <button id="btn-mem-go">Go</button>
+                <label for="mem-rows">Rows:</label>
+                <select id="mem-rows">
+                    <option value="8">8</option>
+                    <option value="16" selected>16</option>
+                    <option value="32">32</option>
+                </select>
+                <label>
+                    <input type="checkbox" id="mem-auto-refresh" checked> Auto-refresh
+                </label>
+            </div>
+            <div class="memory-view" id="memory-view">
+                <!-- Memory dump rendered here -->
+            </div>
+        </section>
+
+        <!-- Program Loader -->
+        <section class="panel loader-panel">
+            <h2>Program Loader</h2>
+            <div class="loader-tabs">
+                <button class="loader-tab active" data-tab="demo">Demo Programs</button>
+                <button class="loader-tab" data-tab="custom">Custom Input</button>
+            </div>
+            <div class="loader-content" id="loader-demo">
+                <p>Load a built-in demo program to explore the AGC:</p>
+                <div class="demo-list">
+                    <button class="demo-btn" data-demo="counter">Counter — Increment loop</button>
+                    <button class="demo-btn" data-demo="add">Add — Sum two numbers</button>
+                    <button class="demo-btn" data-demo="fibonacci">Fibonacci — Sequence generator</button>
+                    <button class="demo-btn" data-demo="countdown">Countdown — Count down to zero</button>
+                </div>
+            </div>
+            <div class="loader-content hidden" id="loader-custom">
+                <p>Enter AGC machine code (octal words, one per line):</p>
+                <textarea id="custom-code" rows="10" placeholder="30007&#10;60007&#10;54100&#10;00000"></textarea>
+                <div class="loader-options">
+                    <label for="load-bank">Bank:</label>
+                    <input type="number" id="load-bank" value="2" min="0" max="35">
+                    <label for="load-addr">Start address (octal):</label>
+                    <input type="text" id="load-addr" value="4000" size="6">
+                    <button id="btn-load">Load</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Console / Log -->
+        <section class="panel console-panel">
+            <h2>Console</h2>
+            <div class="console-output" id="console-output"></div>
+        </section>
+    </main>
+
+    <footer>
+        <p>
+            AGC4 Block II Simulator — Based on documentation from
+            <a href="https://github.com/carloshm/apollo11-ai-walkthrough">apollo11-ai-walkthrough</a>
+            | 15-bit 1's complement · 2048 words RAM · 36864 words ROM
+        </p>
+    </footer>
+
+    <script type="module" src="src/main.js"></script>
+</body>
+</html>
