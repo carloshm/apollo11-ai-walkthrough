@@ -1,0 +1,3 @@
+[workspace]
+members = ["agc-core", "agc-wasm"]
+resolver = "2"

@@ -1,0 +1,7 @@
+[package]
+name = "agc-core"
+version = "0.1.0"
+edition = "2021"
+description = "Apollo Guidance Computer (AGC4 Block II) hardware simulator"
+
+[dependencies]
